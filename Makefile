@@ -1,6 +1,7 @@
 ROOT_DIR  := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 BUILD_DIR := $(ROOT_DIR)/build
 MBED_DIR  := $(ROOT_DIR)/lib/_vendor/mbed-os
+CMAKE_DIR := $(ROOT_DIR)/cmake
 
 all:
 	ninja -C ./build -f build.ninja
@@ -24,7 +25,9 @@ clean_config:
 clone_mbed:
 	rm -rf $(MBED_DIR)
 	git clone --depth=1 --branch=mbed-os-6.3.0 https://github.com/ARMmbed/mbed-os $(MBED_DIR)
+	cp $(CMAKE_DIR)/MbedOS_CMakeLists.txt $(MBED_DIR)/CMakeLists.txt
 
 clone_mbed_master:
 	rm -rf $(MBED_DIR)
-	git clone --depth=1 --branch=master        https://github.com/ARMmbed/mbed-os $(MBED_DIR)
+	git clone --depth=1 --branch=master https://github.com/ARMmbed/mbed-os $(MBED_DIR)
+	cp $(CMAKE_DIR)/MbedOS_CMakeLists.txt $(MBED_DIR)/CMakeLists.txt
