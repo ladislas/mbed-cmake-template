@@ -30,4 +30,4 @@ clone_mbed:
 clone_mbed_master:
 	rm -rf $(MBED_DIR)
 	git clone --depth=1 --branch=master https://github.com/ARMmbed/mbed-os $(MBED_DIR)
-	cp $(CMAKE_DIR)/MbedOS_CMakeLists.txt $(MBED_DIR)/CMakeLists.txt
+	cp $(CMAKE_DIR)/_MbedOS_CMakeLists_Template.txt $(MBED_DIR)/CMakeLists.txt
