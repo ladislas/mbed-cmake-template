@@ -1,33 +1,48 @@
+# Mbed CMake Template
+# Copyright 2020 Ladislas de Toldi (ladislas [at] detoldi.me)
+# SPDX-License-Identifier: Apache-2.0
+
+#
+# MARK: - Constants
+#
+
 ROOT_DIR  := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 BUILD_DIR := $(ROOT_DIR)/build
 MBED_DIR  := $(ROOT_DIR)/lib/_vendor/mbed-os
 CMAKE_DIR := $(ROOT_DIR)/cmake
 
+#
+# MARK:- Arguments
+#
+
+TARGET     ?= DISCO_F769NI
+BRANCH     ?= master
+BUILD_TYPE ?= Release
+
+#
+# MARK:- Targets
+#
+
 all:
 	ninja -C ./build -f build.ninja
 
-config:
-	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
-
-clean: clean_config
+clean:
 	rm -rf $(BUILD_DIR)
-
-build_dir:
-	mkdir -p $(BUILD_DIR)
-
-config_target: clean
-	mkdir -p $(BUILD_DIR)
-	python3 $(ROOT_DIR)/scripts/configure_cmake_for_target.py $(target) -p $(ROOT_DIR)/cmake/config
-
-clean_config:
 	rm -rf $(ROOT_DIR)/cmake/config
+
+config:
+
+	@$(MAKE) clean
+	mkdir -p $(BUILD_DIR)
+	@echo ""
+	python3 $(ROOT_DIR)/scripts/configure_cmake_for_target.py $(TARGET) -p $(ROOT_DIR)/cmake/config
+	@echo "\n"
+	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
 clone_mbed:
 	rm -rf $(MBED_DIR)
-	git clone --depth=1 --branch=mbed-os-6.3.0 https://github.com/ARMmbed/mbed-os $(MBED_DIR)
+	@echo ""
+	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_DIR)
+	@echo ""
 	cp $(CMAKE_DIR)/MbedOS_CMakeLists.txt $(MBED_DIR)/CMakeLists.txt
 
-clone_mbed_master:
-	rm -rf $(MBED_DIR)
-	git clone --depth=1 --branch=master https://github.com/ARMmbed/mbed-os $(MBED_DIR)
-	cp $(CMAKE_DIR)/_MbedOS_CMakeLists_Template.txt $(MBED_DIR)/CMakeLists.txt
