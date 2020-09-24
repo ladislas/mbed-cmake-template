@@ -9,7 +9,7 @@ HelloWorld hello;
 
 static BufferedSerial serial(USBTX, USBRX, 115200);
 
-constexpr uint8_t buff_size = 64;
+constexpr uint8_t buff_size = 80;
 char buff[buff_size] {};
 
 int main(void)
