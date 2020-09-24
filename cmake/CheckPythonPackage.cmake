@@ -4,7 +4,7 @@
 # NOTE: if moving this file, be sure to also move python_packagecheck.py
 
 # must evaluate this now since CMAKE_CURRENT_LIST_DIR doesn't work in function scope
-set(PYTHON_PACKAGECHECK_SCRIPT ${CMAKE_CURRENT_LIST_DIR}/python_packagecheck.py)
+set(PYTHON_PACKAGECHECK_SCRIPT ${MBED_CMAKE_SCRIPTS_DIR}/check_python_package.py)
 
 # set OUTPUT_VAR to whether PACKAGENAME was found
 function(check_python_package PACKAGENAME OUTPUT_VAR)
