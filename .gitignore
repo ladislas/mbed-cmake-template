@@ -4,6 +4,7 @@
 
 .vscode
 lib/_vendor/mbed-os
+build
 
 
 #
