@@ -17,6 +17,7 @@ CMAKE_DIR := $(ROOT_DIR)/cmake
 
 TARGET     ?= DISCO_F769NI
 BRANCH     ?= master
+PROGRAM    ?= src/leka_os.bin
 BUILD_TYPE ?= Release
 
 #
@@ -32,10 +33,16 @@ clean:
 
 config:
 	@$(MAKE) clean
-	mkdir -p $(BUILD_DIR)
 	@echo ""
+	@$(MAKE) config_target
+	@echo ""
+	@$(MAKE) config_cmake
+
+config_target:
 	python3 $(CMAKE_DIR)/scripts/configure_cmake_for_target.py $(TARGET) -p $(CMAKE_DIR)/config
-	@echo "\n"
+
+config_cmake:
+	mkdir -p $(BUILD_DIR)
 	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
 clone_mbed:
@@ -45,3 +52,7 @@ clone_mbed:
 	@echo ""
 	cp $(CMAKE_DIR)/MbedOS_CMakeLists.txt $(MBED_DIR)/CMakeLists.txt
 
+flash:
+	@diskutil list | grep "DIS_" | awk '{print $$5}' | xargs -I {} diskutil unmount '/dev/{}'
+	@diskutil list | grep "DIS_" | awk '{print $$5}' | xargs -I {} diskutil mount   '/dev/{}'
+	cp build/$(PROGRAM) /Volumes/DIS_F769NI
