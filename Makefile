@@ -50,7 +50,7 @@ clone_mbed:
 	@echo ""
 	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_DIR)
 	@echo ""
-	cp $(CMAKE_DIR)/MbedOS_CMakeLists.txt $(MBED_DIR)/CMakeLists.txt
+	cp $(CMAKE_DIR)/templates/Template_MbedOS_CMakelists.txt $(MBED_DIR)/CMakeLists.txt
 
 flash:
 	@diskutil list | grep "DIS_" | awk '{print $$5}' | xargs -I {} diskutil unmount '/dev/{}'
