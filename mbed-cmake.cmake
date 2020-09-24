@@ -14,7 +14,7 @@ message(STATUS "")
 set(MBED_CMAKE_VERSION 1.3.0)
 message(STATUS "mbed-cmake version ${MBED_CMAKE_VERSION}, running on CMake ${CMAKE_VERSION}")
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR})
 
 include(CheckTypeSize)
 include(Shorthand)
@@ -40,9 +40,9 @@ set(MBED_CMAKE_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 # relative to CMakeLists.txt inside mbed-cmake
 if(NOT DEFINED MBED_CMAKE_GENERATED_CONFIG_RELPATH)
-	set(MBED_CMAKE_GENERATED_CONFIG_RELPATH "../mbed-cmake-config")
+	set(MBED_CMAKE_GENERATED_CONFIG_RELPATH ${MBED_CMAKE_CONFIG_DIR})
 endif()
-set(MBED_CMAKE_GENERATED_CONFIG_PATH ${MBED_CMAKE_SOURCE_DIR}/${MBED_CMAKE_GENERATED_CONFIG_RELPATH})
+set(MBED_CMAKE_GENERATED_CONFIG_PATH ${MBED_CMAKE_CONFIG_DIR})
 
 if(NOT DEFINED MBED_CMAKE_CONFIG_HEADERS_PATH)
 	set(MBED_CMAKE_CONFIG_HEADERS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/config-headers)
@@ -129,19 +129,19 @@ endif()
 # Configure upload methods
 # -------------------------------------------------------------
 
-if(NOT MBED_UNITTESTS)
-	# find upload tools
-	find_package(OpenOCD)
-	find_package(JLINK)
+# if(NOT MBED_UNITTESTS)
+# 	# find upload tools
+# 	find_package(OpenOCD)
+# 	find_package(JLINK)
 
-	include(UploadMethods)
-endif()
+# 	include(UploadMethods)
+# endif()
 
 # add Mbed OS source
 # -------------------------------------------------------------
 
 set(MBED_CMAKE_CONFIG_HEADERS_PATH ${MBED_CMAKE_GENERATED_CONFIG_PATH}/config-headers)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/mbed-src) #first get Mbed standard library
+add_subdirectory(${MBED_OS_DIR}) #first get Mbed standard library
 
 # build report
 # -------------------------------------------------------------
