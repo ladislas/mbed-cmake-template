@@ -50,6 +50,11 @@ target_compile_options(mbed-os-static PRIVATE
 # create final library target (wraps actual library target in -Wl,--whole-archive [which is needed for weak symbols to work])
 add_library(mbed-os INTERFACE)
 
+target_include_directories(mbed-os
+    INTERFACE
+        ${MBED_OS_DIR}
+)
+
 target_link_libraries(mbed-os INTERFACE
 	-Wl,--whole-archive
 	mbed-os-static
