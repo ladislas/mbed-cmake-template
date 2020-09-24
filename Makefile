@@ -28,14 +28,13 @@ all:
 
 clean:
 	rm -rf $(BUILD_DIR)
-	rm -rf $(ROOT_DIR)/cmake/config
+	rm -rf $(CMAKE_DIR)/config
 
 config:
-
 	@$(MAKE) clean
 	mkdir -p $(BUILD_DIR)
 	@echo ""
-	python3 $(ROOT_DIR)/scripts/configure_cmake_for_target.py $(TARGET) -p $(ROOT_DIR)/cmake/config
+	python3 $(CMAKE_DIR)/scripts/configure_cmake_for_target.py $(TARGET) -p $(CMAKE_DIR)/config
 	@echo "\n"
 	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
