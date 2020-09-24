@@ -10,7 +10,7 @@ from pathlib import Path
 
 # import Mbed's built-in tools library
 project_root_dir = Path(os.path.dirname(__file__)).parent.parent
-mbed_os_dir = os.path.join(project_root_dir, "./lib/_vendor/mbed-os")
+mbed_os_dir = os.path.join(project_root_dir, "lib/_vendor/mbed-os")
 
 sys.path.append(mbed_os_dir)
 
@@ -22,7 +22,7 @@ try:
 except ImportError:
 
     print("Failed to import the Mbed OS Python configuration system!")
-    print("Be sure that you have installed all required python modules, see mbed-src/requirements.txt")
+    print("Be sure that you have installed all required python modules, see ",mbed_os_dir,"/requirements.txt")
     traceback.print_exc()
     exit(1)
 
