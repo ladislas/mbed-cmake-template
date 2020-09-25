@@ -14,8 +14,17 @@ message(STATUS "")
 set(MBED_CMAKE_VERSION 1.3.0)
 message(STATUS "mbed-cmake version ${MBED_CMAKE_VERSION}, running on CMake ${CMAKE_VERSION}")
 
+set(ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+set(MBED_CMAKE_ROOT_DIR ${ROOT_DIR}/cmake)
+set(MBED_CMAKE_SCRIPTS_DIR ${MBED_CMAKE_ROOT_DIR}/scripts)
+set(MBED_CMAKE_CONFIG_DIR ${MBED_CMAKE_ROOT_DIR}/config)
+set(MBED_OS_DIR ${ROOT_DIR}/lib/_vendor/mbed-os)
+
 list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR})
 list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR}/utils)
+
+# Fix error: The C Compiler is not able to compile a simple test program
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
 include(CheckTypeSize)
 include(Shorthand)
