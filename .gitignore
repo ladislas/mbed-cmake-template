@@ -5,6 +5,7 @@
 .vscode
 lib/_vendor/mbed-os
 build
+cmake/config/
 
 
 #
