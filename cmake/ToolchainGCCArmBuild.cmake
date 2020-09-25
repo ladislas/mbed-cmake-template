@@ -51,8 +51,8 @@ target_compile_options(mbed-os-static PRIVATE
 add_library(mbed-os INTERFACE)
 
 target_include_directories(mbed-os
-    INTERFACE
-        ${MBED_OS_DIR}
+	INTERFACE
+    	${MBED_OS_DIR}
 )
 
 target_link_libraries(mbed-os INTERFACE
