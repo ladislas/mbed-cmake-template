@@ -90,6 +90,23 @@ $ make config TARGET=DISCO_F769NI BUILD_TYPE=Debug
 $ make
 ```
 
+### Edit `.mbedignore`
+
+To speed up compilation time, we've setup an [`.mbedignore`](./.mbedignore) file that removes some files from the compilation process.
+
+If you get error about missing headers when compiling, make sure the header's directory is not set in the `.mbedignore` file.
+
+### Mbed CLI & `.mbed`
+
+If you want to use [mbed-cli](https://github.com/ARMmbed/mbed-cli), you can set your target and favorite toolchain in the [`.mbed`](./.mbed) file:
+
+```bash
+MBED_OS_DIR=./lib/_vendor/mbed-os
+TARGET= DISCO_F769NI
+TOOLCHAIN=GCC_ARM
+ROOT=.
+```
+
 ## Multiple apps & tests
 
 > coming soon...
