@@ -129,13 +129,13 @@ endif()
 # Configure upload methods
 # -------------------------------------------------------------
 
-# if(NOT MBED_UNITTESTS)
-# 	# find upload tools
-# 	find_package(OpenOCD)
-# 	find_package(JLINK)
+if(NOT MBED_UNITTESTS)
+	# find upload tools
+	find_package(OpenOCD)
+	find_package(JLINK)
 
-# 	include(UploadMethods)
-# endif()
+	include(UploadMethods)
+endif()
 
 # add Mbed OS source
 # -------------------------------------------------------------

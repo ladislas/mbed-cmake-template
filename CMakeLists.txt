@@ -13,8 +13,6 @@ set(MBED_CMAKE_SCRIPTS_DIR ${MBED_CMAKE_ROOT_DIR}/scripts)
 set(MBED_CMAKE_CONFIG_DIR ${MBED_CMAKE_ROOT_DIR}/config)
 set(MBED_OS_DIR ${ROOT_DIR}/lib/_vendor/mbed-os)
 
-# include(${MBED_CMAKE_ROOT_DIR}/UploadMethods)
-
 # load compilers and flags
 # -------------------------------------------------------------
 

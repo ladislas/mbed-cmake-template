@@ -3,6 +3,8 @@
 # Step 1: determine supported upload methods
 # -------------------------------------------------------------
 
+set(UPLOAD_METHOD_DEFAULT NONE)
+
 # Start with NONE upload method which does not allow any uploading
 set(SUPPORTED_UPLOAD_METHODS NONE)
 
@@ -124,14 +126,14 @@ exit
     # also create a target to run GDB server
     add_custom_target(start-gdbserver
         COMMENT "Starting J-Link GDB server"
-        COMMAND 
-        "${JLINK_GDBSERVER}" 
-        -Select USB 
+        COMMAND
+        "${JLINK_GDBSERVER}"
+        -Select USB
         -Device ${JLINK_CPU_NAME}
         -Speed ${JLINK_JTAG_SPEED}
-        -endian little 
-        -if JTAG 
-        -JTAGConf -1,-1 
+        -endian little
+        -if JTAG
+        -JTAGConf -1,-1
         -LocalhostOnly
         -noIR
         -port ${GDB_PORT}
