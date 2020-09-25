@@ -26,6 +26,9 @@ list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR}/utils)
 # Fix error: The C Compiler is not able to compile a simple test program
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
+# Add custom flags
+add_compile_options(-fdiagnostics-color)
+
 include(CheckTypeSize)
 include(Shorthand)
 include(Utils)
