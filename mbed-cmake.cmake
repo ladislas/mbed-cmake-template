@@ -15,6 +15,7 @@ set(MBED_CMAKE_VERSION 1.3.0)
 message(STATUS "mbed-cmake version ${MBED_CMAKE_VERSION}, running on CMake ${CMAKE_VERSION}")
 
 list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR})
+list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR}/utils)
 
 include(CheckTypeSize)
 include(Shorthand)
@@ -71,9 +72,9 @@ elseif("${MBED_TOOLCHAIN_NAME}" STREQUAL "ARMC6")
 		message(FATAL_ERROR "CMake >= 3.15.0 is required for Arm Compiler support")
 	endif()
 
-	include(ArmClangToolchain)
+	include(ToolchainArmClangDefine)
 elseif("${MBED_TOOLCHAIN_NAME}" STREQUAL "GCC_ARM")
-	include(GCCArmToolchain)
+	include(ToolchainGCCArmDefine)
 else()
 	message(FATAL_ERROR "Unknown toolchain \"${MBED_TOOLCHAIN_NAME}\"")
 endif()
@@ -121,9 +122,9 @@ endif()
 # -------------------------------------------------------------
 
 if(MBED_UNITTESTS)
-	include(UnitTestMbedExecutable)
+	include(AddMbedUnitTestsExecutable)
 else()
-	include(MbedExecutable)
+	include(AddMbedExecutable)
 endif()
 
 # Configure upload methods
@@ -134,7 +135,7 @@ if(NOT MBED_UNITTESTS)
 	find_package(OpenOCD)
 	find_package(JLINK)
 
-	include(UploadMethods)
+	include(SetUploadMethod)
 endif()
 
 # add Mbed OS source
