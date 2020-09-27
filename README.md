@@ -102,7 +102,7 @@ If you want to use [mbed-cli](https://github.com/ARMmbed/mbed-cli), you can set 
 
 ```bash
 MBED_OS_DIR=./lib/_vendor/mbed-os
-TARGET= DISCO_F769NI
+TARGET=DISCO_F769NI
 TOOLCHAIN=GCC_ARM
 ROOT=.
 ```
