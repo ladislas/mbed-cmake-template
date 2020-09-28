@@ -81,10 +81,10 @@ $ make clone_mbed
 $ make clone_mbed BRANCH=mbed-os-6.3.0
 
 # Then configure for your target
-$ make config TARGET=DISCO_F769NI
+$ make config TARGET_BOARD=DISCO_F769NI
 
-# You can also specify a build type
-$ make config TARGET=DISCO_F769NI BUILD_TYPE=Debug
+# You can also specify a build type (default is Release)
+$ make config TARGET_BOARD=DISCO_F769NI BUILD_TYPE=Debug
 
 # Finally, to compile your project
 $ make
@@ -92,9 +92,13 @@ $ make
 
 ### Edit `.mbedignore`
 
-To speed up compilation time, we've setup an [`.mbedignore`](./.mbedignore) file that removes some files from the compilation process.
+To speed up compilation time, we've setup an [`.mbedignore`](./cmake/templates/Template_MbedOS_mbedignore.txt) file that removes some files from the compilation process.
 
 If you get error about missing headers when compiling, make sure the header's directory is not set in the `.mbedignore` file.
+
+You can edit the `.mbedignore` file here: (it is symlinked to the mbed-os directory)
+
+> [`.cmake/templates/Template_MbedOS_mbedignore.txt`](./cmake/templates/Template_MbedOS_mbedignore.txt)
 
 ### Mbed CLI & `.mbed`
 
@@ -107,9 +111,32 @@ TOOLCHAIN=GCC_ARM
 ROOT=.
 ```
 
-## Multiple apps & tests
+### Flashing the board
 
-> coming soon...
+In the [`Makefile`](./Makefile) we also provide a `flash` target. It simply copies the `.bin` file to your [Mbed Enabled](https://os.mbed.com/mbed-enabled/introduction/) board.
+
+```makefile
+flash:
+	@diskutil list | grep "DIS_F769NI" | awk '{print $$5}' | xargs -I {} diskutil unmount '/dev/{}'
+	@diskutil list | grep "DIS_F769NI" | awk '{print $$5}' | xargs -I {} diskutil mount   '/dev/{}'
+	cp build/$(PROGRAM) /Volumes/DIS_F769NI
+```
+
+You **must** edit the Makefile to suit your needs:
+
+- change the `DIS_F769NI` to your board id
+- change the path of the volume
+- use `fdisk` on Linux instead of `diskutil`
+
+If you need something more complex, it should be easier to provide a script that you can call from the Makefile.
+
+## Multiple apps, spikes & tests
+
+The main idea behind this template is to have your main source files (those for the big project you're working on) under the [`./src`](./src) directory.
+
+Now, you sometimes need to create a simple, very basic example project to test a new features, investigate a bug or try a different solution to a problem.
+
+These can be added to the [`spike`](./spike) directory inside their own directory. You'll need at leat a `main.cpp` and a `CMakeLists.txt`. See [`blinky`](./spike/blinky) for a working example.
 
 ## Notes
 

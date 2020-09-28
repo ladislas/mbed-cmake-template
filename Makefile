@@ -6,26 +6,27 @@
 # MARK: - Constants
 #
 
-ROOT_DIR  := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-BUILD_DIR := $(ROOT_DIR)/build
-MBED_DIR  := $(ROOT_DIR)/lib/_vendor/mbed-os
-CMAKE_DIR := $(ROOT_DIR)/cmake
+ROOT_DIR    := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+CMAKE_DIR   := $(ROOT_DIR)/cmake
+BUILD_DIR   := $(ROOT_DIR)/build
+MBED_OS_DIR := $(ROOT_DIR)/lib/_vendor/mbed-os
 
 #
 # MARK:- Arguments
 #
 
-TARGET     ?= DISCO_F769NI
-BRANCH     ?= master
-PROGRAM    ?= src/leka_os.bin
-BUILD_TYPE ?= Release
+BRANCH       ?= master
+PROJECT      ?=
+PROGRAM      ?= src/main_project.bin
+BUILD_TYPE   ?= Release
+TARGET_BOARD ?= DISCO_F769NI
 
 #
 # MARK:- Targets
 #
 
 all:
-	ninja -C ./build -f build.ninja
+	ninja -C ./build -f build.ninja $(PROJECT)
 
 clean:
 	rm -rf $(BUILD_DIR)
@@ -39,18 +40,19 @@ config:
 	@$(MAKE) config_cmake
 
 config_target:
-	python3 $(CMAKE_DIR)/scripts/configure_cmake_for_target.py $(TARGET) -p $(CMAKE_DIR)/config
+	python3 $(CMAKE_DIR)/scripts/configure_cmake_for_target.py $(TARGET_BOARD) -p $(CMAKE_DIR)/config
 
 config_cmake:
 	mkdir -p $(BUILD_DIR)
 	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
 clone_mbed:
-	rm -rf $(MBED_DIR)
+	rm -rf $(MBED_OS_DIR)
 	@echo ""
-	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_DIR)
+	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_OS_DIR)
 	@echo ""
-	cp $(CMAKE_DIR)/templates/Template_MbedOS_CMakelists.txt $(MBED_DIR)/CMakeLists.txt
+	ln -srf $(CMAKE_DIR)/templates/Template_MbedOS_CMakelists.txt $(MBED_OS_DIR)/CMakeLists.txt
+	ln -srf $(CMAKE_DIR)/templates/Template_MbedOS_mbedignore.txt $(MBED_OS_DIR)/.mbedignore
 
 flash:
 	@diskutil list | grep "DIS_" | awk '{print $$5}' | xargs -I {} diskutil unmount '/dev/{}'
