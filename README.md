@@ -90,7 +90,7 @@ $ make config TARGET_BOARD=DISCO_F769NI BUILD_TYPE=Debug
 $ make
 ```
 
-### Edit `.mbedignore`
+### Using `.mbedignore`
 
 To speed up compilation time, we've setup an [`.mbedignore`](./cmake/templates/Template_MbedOS_mbedignore.txt) file that removes some files from the compilation process.
 
@@ -137,6 +137,10 @@ The main idea behind this template is to have your main source files (those for 
 Now, you sometimes need to create a simple, very basic example project to test a new features, investigate a bug or try a different solution to a problem.
 
 These can be added to the [`spike`](./spike) directory inside their own directory. You'll need at leat a `main.cpp` and a `CMakeLists.txt`. See [`blinky`](./spike/blinky) for a working example.
+
+## Custom targets
+
+If you need to use a custom target, you can add it to the [`target`](./target) directory and edit the [`custom_targets.json`](./targets/custom_targets.json) file.
 
 ## Notes
 

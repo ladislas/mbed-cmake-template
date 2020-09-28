@@ -9,8 +9,9 @@ import pathlib
 from pathlib import Path
 
 # import Mbed's built-in tools library
-project_root_dir = Path(os.path.dirname(__file__)).parent.parent
-mbed_os_dir = os.path.join(project_root_dir, "lib/_vendor/mbed-os")
+project_root_dir   = Path(os.path.dirname(__file__)).parent.parent
+mbed_os_dir        = os.path.join(project_root_dir, "lib/_vendor/mbed-os")
+custom_targets_dir = os.path.join(project_root_dir, "targets")
 
 sys.path.append(mbed_os_dir)
 
@@ -19,6 +20,7 @@ try:
     from tools.resources import Resources, FileType
     from tools.notifier.term import TerminalNotifier
     from tools.config import Config
+    from tools.targets import Target
 except ImportError:
 
     print("Failed to import the Mbed OS Python configuration system!")
@@ -175,6 +177,9 @@ with open(os.path.join(generated_path, "do-not-modify.txt"), 'w') as do_not_modi
 
 # Perform the scan of the Mbed OS dirs
 # -------------------------------------------------------------------------
+
+# Add custom targets
+Target.add_extra_targets(custom_targets_dir)
 
 # profile constants
 # list of all profile JSONs
