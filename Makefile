@@ -55,10 +55,12 @@ config_cmake:
 	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
 clone_mbed:
-	rm -rf $(MBED_OS_DIR)
 	@echo ""
+	@echo "🧬 Cloning Mbed OS ⚗️"
+	rm -rf $(MBED_OS_DIR)
 	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_OS_DIR)
 	@echo ""
+	@echo "🧬 Symlinking templates to Mbed OS directory ⚗️"
 	ln -srf $(CMAKE_DIR)/templates/Template_MbedOS_CMakelists.txt $(MBED_OS_DIR)/CMakeLists.txt
 	ln -srf $(CMAKE_DIR)/templates/Template_MbedOS_mbedignore.txt $(MBED_OS_DIR)/.mbedignore
 
