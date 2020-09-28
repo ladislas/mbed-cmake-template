@@ -161,14 +161,17 @@ parser.add_argument('-p', '--generated-path', default=GENERATED_DEFAULT_PATH,
 parser.add_argument('-t', '--toolchain', default="GCC_ARM",
                     choices=["ARMC6", "GCC_ARM"],
                     help="Toolchain that you will be compiling with.")
+parser.add_argument('-a', '--app-config', default=None,
+                    help="Path to mbed_app.json")
 args = parser.parse_args()
 
-target_name=args.target
-toolchain_name=args.toolchain
-get_config=args.list_config or args.print_config
-verbose_config=args.print_config
+target_name = args.target
+toolchain_name = args.toolchain
+get_config = args.list_config or args.print_config
+verbose_config = args.print_config
 generated_rpath = args.generated_path
 generated_path = os.path.join(project_root_dir, generated_rpath)
+app_config_path = args.app_config
 
 pathlib.Path(generated_path).mkdir(parents=True, exist_ok=True)
 with open(os.path.join(generated_path, "do-not-modify.txt"), 'w') as do_not_modify:
@@ -208,7 +211,7 @@ for profile_json_path in profile_jsons:
 
         print(">> Collecting data for config " + profile_json_path)
         profile_data = json.load(profile_file)
-        profile_toolchain = build_api.prepare_toolchain(src_paths=[mbed_os_dir], build_dir=config_header_dir, target=target_name, toolchain_name=toolchain_name, build_profile=[profile_data])
+        profile_toolchain = build_api.prepare_toolchain(src_paths=[mbed_os_dir], build_dir=config_header_dir, target=target_name, toolchain_name=toolchain_name, build_profile=[profile_data], app_config=app_config_path)
         # each toolchain must then scan the mbed dir to pick up more configs
         resources = Resources(notifier).scan_with_toolchain(src_paths=[mbed_os_dir], toolchain=profile_toolchain, exclude=True)
         profile_toolchain.RESPONSE_FILES=False
