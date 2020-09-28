@@ -26,9 +26,13 @@ TARGET_BOARD ?= DISCO_F769NI
 #
 
 all:
+	@echo ""
+	@echo "🏗️  Building application 🚧"
 	ninja -C ./build -f build.ninja $(PROJECT)
 
 clean:
+	@echo ""
+	@echo "⚠️  Cleaning up build & cmake/config directories 🧹"
 	rm -rf $(BUILD_DIR)
 	rm -rf $(CMAKE_DIR)/config
 
@@ -40,10 +44,14 @@ config:
 	@$(MAKE) config_cmake
 
 config_target:
+	@echo ""
+	@echo "🏃 Running target configuration script 📝"
 	python3 $(CMAKE_DIR)/scripts/configure_cmake_for_target.py $(TARGET_BOARD) -p $(CMAKE_DIR)/config
 
 config_cmake:
-	mkdir -p $(BUILD_DIR)
+	@echo ""
+	@echo "🏃 Running cmake configuration script 📝"
+	@mkdir -p $(BUILD_DIR)
 	@cd $(BUILD_DIR); cmake -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
 clone_mbed:
