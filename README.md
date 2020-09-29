@@ -142,6 +142,15 @@ These can be added to the [`spike`](./spike) directory inside their own director
 
 If you need to use a custom target, you can add it to the [`target`](./target) directory and edit the [`custom_targets.json`](./targets/custom_targets.json) file.
 
+Then, you need to configure the project with the following:
+
+```bash
+# Run config script with "-x TARGET_BOARD_NAME"
+$ make config TARGET_BOARD="-x DISCO_ORIGINAL"
+```
+
+**Don't forget the `-x`**, it's really important as it tells the config script to look for headers and sources files in the `targets` directory.
+
 ## Notes
 
 The template comes with a simple [`HelloWorld`](./lib/HelloWorld) library that you can use as an example and/or use to make sure your program works.
