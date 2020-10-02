@@ -54,13 +54,17 @@ $ python3 -m pip install -U --user pyserial intelhex prettytable
 $ python3 -m pip install -U --user -r lib/_vendor/mbed-os/requirements.txt
 ```
 
-### 2. Install arm-none-eabi-gcc
+### 2. Install arm-none-eabi-gcc & tools
 
 #### For macOS:
 
 ```bash
+# Install arm-gcc
 $ brew tap ArmMbed/homebrew-formulae
 $ brew install arm-none-eabi-gcc
+
+# Install Ninja (for building)
+$ brew install ninja
 ```
 
 #### For Windows & Linux:
@@ -68,6 +72,10 @@ $ brew install arm-none-eabi-gcc
 You can download the toolchain here:
 
 > https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+
+And for Ninja, follow the documentation:
+
+> https://ninja-build.org/
 
 ## How to use
 
