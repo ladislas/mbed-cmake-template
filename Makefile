@@ -22,7 +22,7 @@ VERSION      ?= mbed-os-6.5.0
 BAUDRATE     ?= 115200
 BIN_PATH     ?= $(BUILD_DIR)/src/main_project.bin
 BUILD_TYPE   ?= Release
-TARGET_BOARD ?= -x DISCO_F769NI
+TARGET_BOARD ?= DISCO_F769NI
 
 #
 # MARK:- Build targets

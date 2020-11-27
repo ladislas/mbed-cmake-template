@@ -21,6 +21,10 @@ project("Mbed CMake Template" LANGUAGES C CXX ASM)
 # For convenience you can define useful variables
 set(LIBS_DIR ${ROOT_DIR}/libs)
 set(SPIKES_DIR ${ROOT_DIR}/spikes)
+set(TARGETS_DIR ${ROOT_DIR}/targets)
+
+# Add custom target subdirectory
+add_target_board_subdirectory("${TARGET_BOARD}")
 
 # Add libraries
 add_subdirectory(${LIBS_DIR}/HelloWorld)
