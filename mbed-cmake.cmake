@@ -1,5 +1,5 @@
 # mbed-cmake requires CMake >= 3.12 for the new FindPython3 module
-cmake_policy(VERSION 3.12)
+cmake_policy(VERSION 3.19)
 
 message(STATUS [==[ _       _    ____      ______   ___                      ____    _       _         _        _      _   ______  ]==])
 message(STATUS [==[| \     / |  /  _  \   /  ____) /  _ \_                 / ____)  | \     / |       / \      / \    / | /  ____) ]==])
@@ -18,7 +18,7 @@ set(ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(MBED_CMAKE_ROOT_DIR ${ROOT_DIR}/cmake)
 set(MBED_CMAKE_SCRIPTS_DIR ${MBED_CMAKE_ROOT_DIR}/scripts)
 set(MBED_CMAKE_CONFIG_DIR ${MBED_CMAKE_ROOT_DIR}/config)
-set(MBED_OS_DIR ${ROOT_DIR}/lib/_vendor/mbed-os)
+set(MBED_OS_DIR ${ROOT_DIR}/extern/mbed-os)
 
 list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR})
 list(APPEND CMAKE_MODULE_PATH ${MBED_CMAKE_ROOT_DIR}/utils)

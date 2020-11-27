@@ -3,9 +3,13 @@
 #
 
 .vscode
-lib/_vendor/mbed-os
+extern/mbed-os
 build
 cmake/config/
+.cache
+.clangd
+*.ioc.csv
+cube_path.json
 
 
 #

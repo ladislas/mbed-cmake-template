@@ -3,7 +3,14 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # mbed-cmake requires at least CMake 3.18
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.19)
+
+# Activate ccache
+find_program(CCACHE "ccache")
+if(CCACHE)
+    set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE})
+    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
+endif()
 
 # ⚠️ Before all, include mbed-cmake.cmake
 include(./mbed-cmake.cmake)
@@ -12,16 +19,21 @@ include(./mbed-cmake.cmake)
 project("Mbed CMake Template" LANGUAGES C CXX ASM)
 
 # For convenience you can define useful variables
-set(LIB_DIR ${ROOT_DIR}/lib)
+set(LIBS_DIR ${ROOT_DIR}/libs)
+set(SPIKES_DIR ${ROOT_DIR}/spikes)
+set(TARGETS_DIR ${ROOT_DIR}/targets)
+
+# Add custom target subdirectory
+add_target_board_subdirectory("${TARGET_BOARD}")
 
 # Add libraries
-add_subdirectory(${LIB_DIR}/HelloWorld)
+add_subdirectory(${LIBS_DIR}/HelloWorld)
+
+# If you use spikes to test features, you can add them here
+add_subdirectory(${SPIKES_DIR}/blinky)
 
 # Add the main source files of the project from ./src
 add_subdirectory(${ROOT_DIR}/src)
-
-# If you use spikes to test features, you can add them here
-add_subdirectory(${ROOT_DIR}/spike/blinky)
 
 # Finally print the mbed-cmake build report
 mbed_cmake_print_build_report()
