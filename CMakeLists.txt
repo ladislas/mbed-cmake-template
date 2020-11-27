@@ -20,15 +20,16 @@ project("Mbed CMake Template" LANGUAGES C CXX ASM)
 
 # For convenience you can define useful variables
 set(LIBS_DIR ${ROOT_DIR}/libs)
+set(SPIKES_DIR ${ROOT_DIR}/spikes)
 
 # Add libraries
 add_subdirectory(${LIBS_DIR}/HelloWorld)
 
+# If you use spikes to test features, you can add them here
+add_subdirectory(${SPIKES_DIR}/blinky)
+
 # Add the main source files of the project from ./src
 add_subdirectory(${ROOT_DIR}/src)
-
-# If you use spikes to test features, you can add them here
-add_subdirectory(${ROOT_DIR}/spike/blinky)
 
 # Finally print the mbed-cmake build report
 mbed_cmake_print_build_report()
