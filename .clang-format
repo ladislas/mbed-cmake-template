@@ -1,15 +1,28 @@
 BasedOnStyle: Google
 IndentWidth: 4
 TabWidth: 4
-ColumnLimit: 180
+ColumnLimit: 120
 
 Language: Cpp
-Standard: Cpp11
+Standard: Latest
+
+IncludeBlocks: Regroup
+
+IncludeCategories:
+  - Regex:           '(<|"mbed)'
+    Priority:        0
+    SortPriority:    0
+  - Regex:           '"(drivers|rtos|events|platform)'
+    Priority:        2
+    SortPriority:    0
+  - Regex:           'PinNames.h'
+    Priority:        1
+    SortPriority:    0
+  - Regex:           '"(connectivity|features|storage|ble)'
+    Priority:        3
+    SortPriority:    0
 
 AccessModifierOffset: -2
-SpacesBeforeTrailingComments: 3
-
-NamespaceIndentation: All
 
 Cpp11BracedListStyle: true
 
@@ -18,13 +31,18 @@ PointerAlignment: Right
 AlignAfterOpenBracket: true
 AlignConsecutiveAssignments: true
 
-AlignEscapedNewlines: Right
-AlignTrailingComments: true
-AllowShortBlocksOnASingleLine: true
 FixNamespaceComments: true
 IndentCaseLabels: true
 
-NamespaceIndentation: All
+AlignEscapedNewlines: Right
+
+SpacesBeforeTrailingComments: 3
+AlignTrailingComments: true
+ReflowComments: true
+
+AlignConsecutiveMacros: true
+
+NamespaceIndentation: Inner
 SpaceBeforeCpp11BracedList: true
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: false
@@ -33,13 +51,13 @@ UseTab: Always
 KeepEmptyLinesAtTheStartOfBlocks: false
 
 AllowShortFunctionsOnASingleLine: Inline
+AllowShortBlocksOnASingleLine: Never
 
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterClass: true
   AfterFunction: true
+  AfterEnum: true
+  AfterNamespace: false
 
-
-#IndentPPDirectives: BeforeHash
-#AlignConsecutiveMacros: true
-#SpaceInEmptyBlock: true
+IndentPPDirectives: BeforeHash
