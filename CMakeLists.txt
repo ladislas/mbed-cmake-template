@@ -19,10 +19,10 @@ include(./mbed-cmake.cmake)
 project("Mbed CMake Template" LANGUAGES C CXX ASM)
 
 # For convenience you can define useful variables
-set(LIB_DIR ${ROOT_DIR}/lib)
+set(LIBS_DIR ${ROOT_DIR}/libs)
 
 # Add libraries
-add_subdirectory(${LIB_DIR}/HelloWorld)
+add_subdirectory(${LIBS_DIR}/HelloWorld)
 
 # Add the main source files of the project from ./src
 add_subdirectory(${ROOT_DIR}/src)
