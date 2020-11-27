@@ -1,5 +1,7 @@
 # Mbed CMake Template
 
+**Version: 1.0.0**
+
 ## Introduction
 
 This repository can be used as a starting template for [mbed](https://github.com/ARMmbed/mbed-os) projects with sane defaults:
