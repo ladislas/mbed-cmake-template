@@ -67,6 +67,9 @@ $ brew install arm-none-eabi-gcc
 
 # Install Ninja (for building)
 $ brew install ninja
+
+# Install coreutils and add to path
+$ brew install coreutils
 ```
 
 #### For Windows & Linux:
