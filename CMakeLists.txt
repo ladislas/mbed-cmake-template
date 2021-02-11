@@ -35,6 +35,8 @@ project("Mbed CMake Template" LANGUAGES C CXX ASM)
 
 # Add mbed-os
 add_subdirectory(${MBED_PATH})
+include(${ROOT_DIR}/cmake/mbed_create_distro.cmake)
+mbed_create_distro(mbed_for_my_app mbed-os)
 
 # Add libraries
 add_subdirectory(${LIBS_DIR}/HelloWorld)
@@ -42,7 +44,7 @@ add_subdirectory(${LIBS_DIR}/HelloWorld)
 # Add executable targets main & blinky (as spike)
 # 💡 You can uncomment both lines to make it fail
 add_subdirectory(${ROOT_DIR}/src)
-# add_subdirectory(${SPIKES_DIR}/blinky)
+add_subdirectory(${SPIKES_DIR}/blinky)
 
 option(VERBOSE_BUILD "Have a verbose build process")
 if(VERBOSE_BUILD)

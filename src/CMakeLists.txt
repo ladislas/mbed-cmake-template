@@ -5,6 +5,7 @@
 add_executable(main_program)
 
 mbed_configure_app_target(main_program)
+mbed_set_mbed_target_linker_script_patched(main_program)
 
 target_sources(main_program
     PRIVATE
@@ -14,7 +15,7 @@ target_sources(main_program
 target_link_libraries(main_program
 	PRIVATE
 		HelloWorld
-        mbed-os
+        mbed_for_my_app
 )
 
 mbed_set_post_build(main_program)

@@ -16,5 +16,5 @@ target_sources(HelloWorld
 
 target_link_libraries(HelloWorld
 	PRIVATE
-		mbed-os
+		mbed_for_my_app
 )
