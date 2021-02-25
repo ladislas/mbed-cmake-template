@@ -175,7 +175,7 @@ mbed_clone:
 	@echo ""
 	@echo "🧬 Cloning Mbed OS 📦"
 	@rm -rf $(MBED_OS_DIR)
-	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_OS_DIR)
+	git clone --depth=1 --branch=$(BRANCH) https://github.com/0xc0170/mbed-os $(MBED_OS_DIR)
 
 mbed_curl:
 	@echo ""
