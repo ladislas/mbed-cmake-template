@@ -2,16 +2,19 @@
 # Copyright 2020 Ladislas de Toldi (ladislas [at] detoldi.me)
 # SPDX-License-Identifier: Apache-2.0
 
-add_mbed_executable(main_project)
+add_executable(main_program)
 
-target_sources(main_project
-  PRIVATE
-    main.cpp
+mbed_configure_app_target(main_program)
+
+target_sources(main_program
+    PRIVATE
+        main.cpp
 )
 
-target_include_directories(main_project
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
+target_link_libraries(main_program
+	PRIVATE
+		HelloWorld
+        mbed-os
 )
 
-target_link_libraries(main_project lib_hello_world)
+mbed_set_post_build(main_program)
