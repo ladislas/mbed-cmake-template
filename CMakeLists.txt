@@ -42,7 +42,7 @@ add_subdirectory(${LIBS_DIR}/HelloWorld)
 # Add executable targets main & blinky (as spike)
 # 💡 You can uncomment both lines to make it fail
 add_subdirectory(${ROOT_DIR}/src)
-# add_subdirectory(${SPIKES_DIR}/blinky)
+add_subdirectory(${SPIKES_DIR}/blinky)
 
 option(VERBOSE_BUILD "Have a verbose build process")
 if(VERBOSE_BUILD)
