@@ -17,7 +17,8 @@ jobs:
         run: |
           curl -s --create-dirs -o ./wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
           unzip -q -o wrapper.zip
-          build-wrapper-macosx-x86 --out-dir bw-output make config all
+          ls -al
+          ./build-wrapper-macosx-x86 --out-dir bw-output make config all
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
