@@ -5,6 +5,7 @@
 add_executable(blinky)
 
 mbed_configure_app_target(blinky)
+mbed_set_mbed_target_linker_script_patched(blinky)
 
 target_sources(blinky
     PRIVATE
@@ -13,7 +14,7 @@ target_sources(blinky
 
 target_link_libraries(blinky
 	PRIVATE
-        mbed-os
+		mbed_for_my_app
 )
 
 mbed_set_post_build(blinky)
