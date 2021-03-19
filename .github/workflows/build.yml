@@ -1,0 +1,26 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Build wrapper
+        run: |
+          curl -s --create-dirs -o ./wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
+          unzip -q -o wrapper.zip
+          mv build-wrapper-macosx-x86 wrapper
+          ./wrapper/build-wrapper-macosx-x86 --out-dir bw-output make config all
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
