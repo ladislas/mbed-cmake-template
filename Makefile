@@ -77,13 +77,13 @@ clean_config:
 
 config_target: mkdir_config
 	@echo ""
-	@echo "🏃 Running configuration script for target $(TARGET_BOARD) 📝"
-	python3 $(CMAKE_DIR)/scripts/configure_cmake_for_target.py $(TARGET_BOARD) -p $(PROJECT_BUILD_DIR)/cmake_config/$(TARGET_BOARD) -a $(ROOT_DIR)/mbed_app.json
+	@echo "🏃 Running target configuration script 📝"
+	mbed-tools configure -t GCC_ARM -m $(TARGET_BOARD) --mbed-os-path=./extern/mbed-os
 
 config_cmake: mkdir_build
 	@echo ""
 	@echo "🏃 Running cmake configuration script for target $(TARGET_BOARD) 📝"
-	@cmake -S . -B $(TARGET_BUILD_DIR) -GNinja -DTARGET_BOARD="$(TARGET_BOARD)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -DENABLE_CODE_ANALYSIS=$(CODE_ANALYSIS)
+	@cmake -S . -B $(TARGET_BUILD_DIR) -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -DTARGET_BOARD=$(TARGET_BOARD)
 
 #
 # MARK: - Tests targets
@@ -176,7 +176,6 @@ mbed_clone:
 	@echo "🧬 Cloning Mbed OS 📦"
 	@rm -rf $(MBED_OS_DIR)
 	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_OS_DIR)
-	@$(MAKE) mbed_symlink_files
 
 mbed_curl:
 	@echo ""
@@ -186,7 +185,6 @@ mbed_curl:
 	curl -O -L https://github.com/ARMmbed/mbed-os/archive/$(VERSION).tar.gz
 	tar -xzf $(VERSION).tar.gz --strip-components=1 -C extern/mbed-os
 	rm -rf $(VERSION).tar.gz
-	@$(MAKE) mbed_symlink_files
 
 mbed_symlink_files:
 	@echo ""

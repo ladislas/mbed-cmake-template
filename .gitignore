@@ -6,7 +6,9 @@
 extern/mbed-os
 _build*
 _coverage*
+cmake_build
 cmake/config/
+.mbedbuild
 .cache
 .clangd
 *.ioc.csv
