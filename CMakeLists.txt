@@ -12,7 +12,19 @@ if(CCACHE)
     set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
 endif()
 
-# Before all, set ROOT_DIR, MBED_OS_DIR
+# Set C/C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS TRUE)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_EXTENSIONS TRUE)
+
+# Add custom flags
+add_compile_options(
+	-fdiagnostics-color
+	$<$<COMPILE_LANGUAGE:CXX>:-Wno-register>
+)
+
+# Set ROOT_DIR, MBED_PATH, MBED_CONFIG_PATH
 set(ROOT_DIR    ${CMAKE_CURRENT_LIST_DIR})
 set(MBED_OS_DIR ${ROOT_DIR}/extern/mbed-os)
 
