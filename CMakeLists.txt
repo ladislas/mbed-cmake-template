@@ -23,10 +23,12 @@ add_compile_options(
 	$<$<COMPILE_LANGUAGE:CXX>:-Wno-register>
 )
 
+message(STATUS "Target board: ${TARGET_BOARD}")
+
 # Set ROOT_DIR, MBED_PATH, MBED_CONFIG_PATH
 set(ROOT_DIR         ${CMAKE_CURRENT_LIST_DIR})
 set(MBED_PATH        ${ROOT_DIR}/extern/mbed-os CACHE INTERNAL "")
-set(MBED_CONFIG_PATH ${ROOT_DIR}/.mbedbuild CACHE INTERNAL "")
+set(MBED_CONFIG_PATH ${ROOT_DIR}/cmake_build/${TARGET_BOARD}/develop/GCC_ARM/ CACHE INTERNAL "")
 
 # For convenience, define useful variables
 set(LIBS_DIR    ${ROOT_DIR}/libs)

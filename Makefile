@@ -83,7 +83,7 @@ config_target: mkdir_config
 config_cmake: mkdir_build
 	@echo ""
 	@echo "🏃 Running cmake configuration script for target $(TARGET_BOARD) 📝"
-	@cmake -S . -B $(TARGET_BUILD_DIR) -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
+	@cmake -S . -B $(TARGET_BUILD_DIR) -GNinja -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -DTARGET_BOARD=$(TARGET_BOARD)
 
 #
 # MARK: - Tests targets
