@@ -177,6 +177,12 @@ mbed_clone:
 	@rm -rf $(MBED_OS_DIR)
 	git clone --depth=1 --branch=$(BRANCH) https://github.com/ARMmbed/mbed-os $(MBED_OS_DIR)
 
+mbed_clone_patch:
+	@echo ""
+	@echo "🧬 Cloning Mbed OS 📦"
+	@rm -rf $(MBED_OS_DIR)
+	git clone --depth=1 --branch=create-distro-reborn https://github.com/multiplemonomials/mbed-os $(MBED_OS_DIR)
+
 mbed_curl:
 	@echo ""
 	@echo "🧬 Curling Mbed OS 📦"

@@ -13,7 +13,7 @@ target_sources(blinky
 
 target_link_libraries(blinky
 	PRIVATE
-        mbed-os
+        mbed-os-lib
 )
 
 mbed_set_post_build(blinky)

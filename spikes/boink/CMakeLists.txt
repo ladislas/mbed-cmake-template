@@ -2,19 +2,18 @@
 # Copyright 2020 Ladislas de Toldi (ladislas [at] detoldi.me)
 # SPDX-License-Identifier: Apache-2.0
 
-add_executable(main_program)
+add_executable(boink)
 
-mbed_configure_app_target(main_program)
+mbed_configure_app_target(boink)
 
-target_sources(main_program
+target_sources(boink
     PRIVATE
         main.cpp
 )
 
-target_link_libraries(main_program
+target_link_libraries(boink
 	PRIVATE
-		HelloWorld
         mbed-os-lib
 )
 
-mbed_set_post_build(main_program)
+mbed_set_post_build(boink)
