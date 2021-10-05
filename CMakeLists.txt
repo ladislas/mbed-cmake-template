@@ -2,7 +2,6 @@
 # Copyright 2020 Ladislas de Toldi (ladislas [at] detoldi.me)
 # SPDX-License-Identifier: Apache-2.0
 
-# mbed-cmake requires at least CMake 3.18
 cmake_minimum_required(VERSION 3.19)
 
 # Activate ccache
@@ -24,38 +23,45 @@ add_compile_options(
 	$<$<COMPILE_LANGUAGE:CXX>:-Wno-register>
 )
 
+message(STATUS "Target board: ${TARGET_BOARD}")
+
 # Set ROOT_DIR, MBED_PATH, MBED_CONFIG_PATH
-set(ROOT_DIR    ${CMAKE_CURRENT_LIST_DIR})
-set(MBED_OS_DIR ${ROOT_DIR}/extern/mbed-os)
+set(ROOT_DIR         ${CMAKE_CURRENT_LIST_DIR})
+set(MBED_PATH        ${ROOT_DIR}/extern/mbed-os CACHE INTERNAL "")
+set(MBED_CONFIG_PATH ${ROOT_DIR}/cmake_build/${TARGET_BOARD}/develop/GCC_ARM/ CACHE INTERNAL "")
 
-# And include mbed-cmake.cmake
-include(./mbed-cmake.cmake)
-
-# Then configure name of the project
-project("Mbed CMake Template" LANGUAGES C CXX ASM)
+# For convenience, define useful variables
+set(LIBS_DIR    ${ROOT_DIR}/libs)
+set(SPIKES_DIR  ${ROOT_DIR}/spikes)
+set(TARGETS_DIR ${ROOT_DIR}/targets)
 
 # Generate compile commands database
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 
-# For convenience you can define useful variables
-set(LIBS_DIR ${ROOT_DIR}/libs)
-set(SPIKES_DIR ${ROOT_DIR}/spikes)
-set(TARGETS_DIR ${ROOT_DIR}/targets)
+# Include mbed os cmake logic
+include(${MBED_PATH}/tools/cmake/app.cmake)
 
-# Add custom target subdirectory
-set(AVAILABLE_CUSTOM_TARGETS DISCO_ORIGINAL LEKA_V1_0_DEV LEKA_V1_1_DEV LEKA_V1_2_DEV)
-if (${TARGET_BOARD} IN_LIST AVAILABLE_CUSTOM_TARGETS)
-	add_subdirectory(${TARGETS_DIR}/TARGET_${TARGET_BOARD})
-endif()
+# Colored output when compiling
+add_compile_options(-fdiagnostics-color)
+
+# 💡 Set project name and languages
+project("Mbed CMake Template" LANGUAGES C CXX ASM)
+
+# Add mbed-os
+add_subdirectory(${MBED_PATH})
+
+mbed_create_distro(mbed-os-lib mbed-os)
 
 # Add libraries
 add_subdirectory(${LIBS_DIR}/HelloWorld)
 
-# If you use spikes to test features, you can add them here
-add_subdirectory(${SPIKES_DIR}/blinky)
-
-# Add the main source files of the project from ./src
+# Add executable targets main & blinky (as spike)
+# 💡 You can uncomment both lines to make it fail
 add_subdirectory(${ROOT_DIR}/src)
+add_subdirectory(${SPIKES_DIR}/blinky)
+add_subdirectory(${SPIKES_DIR}/boink)
 
-# Finally print the mbed-cmake build report
-mbed_cmake_print_build_report()
+option(VERBOSE_BUILD "Have a verbose build process")
+if(VERBOSE_BUILD)
+    set(CMAKE_VERBOSE_MAKEFILE ON)
+endif()

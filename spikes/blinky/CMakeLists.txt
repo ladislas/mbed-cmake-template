@@ -2,14 +2,18 @@
 # Copyright 2020 Ladislas de Toldi (ladislas [at] detoldi.me)
 # SPDX-License-Identifier: Apache-2.0
 
-add_mbed_executable(blinky)
+add_executable(blinky)
+
+mbed_configure_app_target(blinky)
 
 target_sources(blinky
-  PRIVATE
-    main.cpp
+    PRIVATE
+        main.cpp
 )
 
-target_include_directories(blinky
-  PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
+target_link_libraries(blinky
+	PRIVATE
+        mbed-os-lib
 )
+
+mbed_set_post_build(blinky)

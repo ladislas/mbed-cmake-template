@@ -1,5 +1,39 @@
 # Mbed CMake Template
 
+## 🚧 WIP - From USCRPL/mbed-cmake to Mbed OS first-party CMake
+
+> ⚠️⚠️⚠️
+
+This branch is a WIP to move from USCRPL/mbed-cmake to Mbed OS first-party CMake.
+
+### Instructions
+
+```shell
+# Clone repository & switch branch
+git clone https://github.com/ladislas/mbed-cmake-template
+cd mbed-cmake-template
+git checkout feature/move-to-vanilla-cmake
+
+# Clone mbed-os in `./extern/mbed-os`
+# You can select the branch or tag you want
+git clone --depth=10 --branch=master https://github.com/ARMmbed/mbed-os ./extern/mbed-os
+
+# Config CMake
+make config
+
+# Build the project
+make
+```
+
+Please note:
+
+- there is no need to run `mbed-tools configure... `, `.mbedbuild` is included in the repository for `DISCO_F769NI`
+- `make config` runs `make clean` before configuring CMake
+- To chekcout a different branch in `mbed-os`, `cd ./extern/mbed-os` and then `git checkout` or `gh pr checkout {pr_number}`
+- To test two `add_executable` targets, you can uncomment line 29-30 from the main `CMakeLists.txt`
+
+> ⚠️⚠️⚠️
+
 **Version: 1.0.0**
 
 ## Introduction
